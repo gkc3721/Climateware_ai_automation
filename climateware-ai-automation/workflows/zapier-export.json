@@ -1,0 +1,88 @@
+{
+  "name": "Climateware - Project Closure Automation",
+  "description": "Multi-agent automation for project finalization, CO₂ reporting, follow-up reminders, and deadline escalations.",
+  "steps": [
+    {
+      "step": 1,
+      "type": "trigger",
+      "app": "Jira",
+      "event": "Issue Updated",
+      "conditions": {
+        "Field": "Status",
+        "Operator": "equals",
+        "Value": "Done"
+      }
+    },
+    {
+      "step": 2,
+      "type": "action",
+      "app": "Filter by Zapier",
+      "event": "Only continue if",
+      "conditions": {
+        "Status": "Done"
+      }
+    },
+    {
+      "step": 3,
+      "type": "action",
+      "app": "OpenAI (GPT-4)",
+      "event": "Chat Completion",
+      "prompt": "Proje Başlığı: {{issue.summary}}\nProje Açıklaması: {{issue.description}}\n(Kurallar: Türkçe, JSON formatlı kapanış raporu üret.)"
+    },
+    {
+      "step": 4,
+      "type": "action",
+      "app": "Code by Zapier (Python)",
+      "event": "Run Python",
+      "code_snippet": "import json\n\ndata = json.loads(input_data['json_text'])\n\nreturn {\n  \"project_title\": data.get(\"project_title\", \"\"),\n  \"project_goal\": data.get(\"project_goal\", \"\"),\n  \"outputs\": data.get(\"outputs\", \"\"),\n  \"co2_saving\": data.get(\"co2_saving\", \"\"),\n  \"co2_value\": data.get(\"co2_value\", \"\"),\n  \"next_step_1\": data.get(\"next_steps\", [\"\", \"\", \"\"])[0],\n  \"next_step_2\": data.get(\"next_steps\", [\"\", \"\", \"\"])[1],\n  \"next_step_3\": data.get(\"next_steps\", [\"\", \"\", \"\"])[2]\n}"
+    },
+    {
+      "step": 5,
+      "type": "action",
+      "app": "PDF.co",
+      "event": "HTML to PDF",
+      "template": "Structured closure report based on parsed fields."
+    },
+    {
+      "step": 6,
+      "type": "action",
+      "app": "HubSpot",
+      "event": "Find Contact",
+      "lookup_field": "Assignee Email"
+    },
+    {
+      "step": 7,
+      "type": "action",
+      "app": "HubSpot",
+      "event": "Create Engagement",
+      "email_subject": "[Climateware] Proje Tamamlandı: {{project_title}}",
+      "email_body": "Merhaba {{contact_first_name}},\nProje başarıyla tamamlandı. Raporu buradan indirebilirsiniz 👉 {{pdf_link}}\nTeşekkürler,\nClimateware AI Takımı"
+    },
+    {
+      "step": 8,
+      "type": "action",
+      "app": "Google Sheets",
+      "event": "Create Spreadsheet Row",
+      "fields": [
+        "Project Name",
+        "Assignee",
+        "Completion Date",
+        "CO₂ Saving"
+      ]
+    },
+    {
+      "step": 9,
+      "type": "action",
+      "app": "Delay by Zapier",
+      "event": "Delay For 2 Days"
+    },
+    {
+      "step": 10,
+      "type": "action",
+      "app": "HubSpot",
+      "event": "Create Engagement",
+      "email_subject": "[Climateware] Geri Bildiriminizi Paylaşır Mısınız?",
+      "email_body": "Merhaba {{contact_first_name}},\n2 gün önce gönderdiğimiz proje raporu hakkında görüşlerinizi bekliyoruz.\n👉 Birkaç dakikanızı ayırırsanız çok seviniriz!\n(Eğer zaten geri dönüş yaptıysanız, lütfen bu mesajı dikkate almayın.)"
+    }
+  ]
+}

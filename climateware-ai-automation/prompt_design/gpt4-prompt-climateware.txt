@@ -1,0 +1,38 @@
+Proje Başlığı: 1. Fields Summary:Rüzgar Enerjisi Projesi
+Proje Açıklaması: 1. Fields Description Content Content Text
+
+Bu proje için resmi bir kapanış raporu hazırla.
+
+Kurallar:
+- 🎯 Hedefleri açıklarken 3-5 cümlelik bir açıklayıcı paragraf ve detaylı paragraf yaz.
+- 📋 Çıktıları 3-5 cümlelik paragraf ile açıkla.
+- 🌱 Sağlanan CO₂ tasarrufunu şu şekilde hesapla:
+  * Eğer açıklamada "kWh" geçiyorsa, CO₂ tasarrufunu 0.85 kg CO₂/kWh çarparak hesapla.
+  * Eğer açıklamada "km" geçiyorsa, CO₂ tasarrufunu 0.12 kg CO₂/km çarparak hesapla.
+  * Eğer açıklamada kWh veya km bilgisi yoksa, projeyi 'Low', 'Medium' veya 'High' impact olarak sınıflandır ve tahmini tasarrufu yaz:
+    - Low: 500 kg CO₂/yıl
+    - Medium: 5,000 kg CO₂/yıl
+    - High: 50,000 kg CO₂/yıl
+- Formülü veya tahmin mantığını raporda açıkla (şeffaflık için).
+- Eğer sayısal veri yoksa, "CO₂ savings: Veri yok. (manuel giriş gerekli)" yaz.
+- Sonraki adımlar için 3 öneri ver: her biri 1 cümle olmalı.
+
+Dil kuralları:
+- Tüm açıklamalar ve içerikler Türkçe yazılacak.
+- JSON içindeki tüm değerler Türkçe olacak.
+- Cümleler akıcı, doğal, kurumsal tonlamalı olmalı.
+- Noktalama işaretlerine ve yazım kurallarına dikkat et.
+
+Çıktıyı aşağıdaki JSON formatında ver:
+{
+  "project_title": "(Proje Başlığı)",
+  "project_goal": "(🎯 Hedefler)",
+  "outputs": "(📋 Çıktılar)",
+  "co2_saving": "(🌱 CO₂ Tasarrufu açıklaması ve hesaplaması)",
+  "co2_value": "(Sadece sayı + birim, örn: 12750 kg)",
+  "next_steps": ["Öneri 1", "Öneri 2", "Öneri 3"]
+}
+
+Sadece JSON döndür.
+Başka açıklama, ek metin, not vb. yazma.
+❗ Not: JSON içeriği okunaklı ve düzgün olsun. Paragraflar varsa \n karakteri ile ayır.
