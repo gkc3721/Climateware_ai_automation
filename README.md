@@ -87,19 +87,16 @@ The report generation transparently explains the CO₂ saving formula or assumpt
 ```bash
 /climateware-ai-automation
 ├── README.md
-├── LICENSE
 ├── /assets
 │   ├── zapier-flow.png
-│   └── project-architecture.png
-├── /docs
 │   └── climateware-architecture.md
-├── /demo-video
-│   └── prototype-demo.mp4
+├── prototype-demo.mp4
 ├── /workflows
 │   └── zapier-export.json
 ├── /prompt-design
 │   └── gpt4-prompt-climateware.txt
 ├── /templates
+│   ├── parse_json_zapier.py
 │   └── project-report-template.html
 ├── /sample-outputs
 │   ├── sample-project-log.xlsx
@@ -111,8 +108,7 @@ The report generation transparently explains the CO₂ saving formula or assumpt
 
 ## 📻 Demo Video
 
-📹 **[Click here to watch the prototype demonstration](demo-video/prototype-demo.mp4)**  
-(*Video is stored inside `/demo-video/` folder in this repository.*)
+📹   (*Video is stored in this repository.*)
 
 ---
 
